@@ -152,4 +152,4 @@ app.*.symbols
 .gclient_previous_sync_commits
 
 # Mine Extra repo
-lib/Extra/
+lib/Extra
