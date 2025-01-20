@@ -74,4 +74,18 @@ class Utils {
       )..show(context),
     );
   }
+
+  static snackbarMessage(
+      String message, context, Color backgroundColor, IconData icon) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: backgroundColor,
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+        padding: const EdgeInsets.all(14),
+      ),
+    );
+  }
 }
