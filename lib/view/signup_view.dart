@@ -50,6 +50,10 @@ class _SignUpViewState extends State<SignUpView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Text('email: eve.holt@reqres.in\npassword: pistol'),
+            SizedBox(
+              height: height * 0.02,
+            ),
             TextFormField(
               controller: _signUpEmailController,
               focusNode: signUpEmailFocusNode,
@@ -119,16 +123,17 @@ class _SignUpViewState extends State<SignUpView> {
               text: 'Sign Up',
               loading: authViewModel.loading,
               onPress: () {
-                if (_signUpEmailController.text.isEmpty ||
-                    !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(_signUpEmailController.text)) {
-                  Utils.flushbarMessage('Enter a Valid Email', context,
+                String emailValidationResult =
+                    Utils.emailValidationCheck(_signUpEmailController.text);
+
+                if (emailValidationResult != 'Email is Valid') {
+                  Utils.flushbarMessage(emailValidationResult, context,
                       Colors.red, Icons.error_sharp);
                 } else {
                   String passwordValidationResult =
                       Utils.passwordValidationCheck(
                           _signUpPasswordController.text);
-                  if (passwordValidationResult != 'Password is valid') {
+                  if (passwordValidationResult != 'Password is Valid') {
                     Utils.flushbarMessage(passwordValidationResult, context,
                         Colors.red, Icons.error_sharp);
                   } else {
@@ -136,6 +141,7 @@ class _SignUpViewState extends State<SignUpView> {
                       "email": _signUpEmailController.text,
                       "password": _signUpPasswordController.text
                     };
+
                     authViewModel.signUpApi(data, context);
                   }
                 }

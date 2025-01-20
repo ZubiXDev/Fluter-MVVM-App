@@ -49,6 +49,10 @@ class _LoginViewState extends State<LoginView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Text('Email: eve.holt@reqres.in\nPassword: cityslicka'),
+            SizedBox(
+              height: height * 0.02,
+            ),
             TextFormField(
               controller: _emailController,
               focusNode: emailFocusNode,
@@ -116,26 +120,27 @@ class _LoginViewState extends State<LoginView> {
               text: 'Login',
               loading: authViewModel.loading,
               onPress: () {
-                if (_emailController.text.isEmpty ||
-                    !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                        .hasMatch(_emailController.text)) {
-                  Utils.flushbarMessage('Enter a Valid Email', context,
+                String emailValidationResult =
+                    Utils.emailValidationCheck(_emailController.text);
+
+                if (emailValidationResult != 'Email is Valid') {
+                  Utils.flushbarMessage(emailValidationResult, context,
                       Colors.red, Icons.error_sharp);
                 } else {
                   String passwordValidationResult =
                       Utils.passwordValidationCheck(_passwordController.text);
-                  if (passwordValidationResult != 'Password is valid') {
+                  if (passwordValidationResult != 'Password is Valid') {
                     Utils.flushbarMessage(passwordValidationResult, context,
                         Colors.red, Icons.error_sharp);
                   } else {
-                    // Map data = {
-                    //   "email": _emailController.text,
-                    //   "password": _passwordController.text
-                    // };
                     Map data = {
-                      "email": "eve.holt@reqres.in",
-                      "password": "cityslicka"
+                      "email": _emailController.text,
+                      "password": _passwordController.text
                     };
+                    // Map data = {
+                    //   "email": "eve.holt@reqres.in",
+                    //   "password": "cityslicka"
+                    // };
                     authViewModel.loginApi(data, context);
                   }
                 }
