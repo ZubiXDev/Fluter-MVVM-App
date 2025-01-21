@@ -13,9 +13,9 @@ This project demonstrates a clean and scalable **Flutter application** using the
 ```
 lib/
 ├── data/             # Data models and network services
-│   ├── model/        # Data models (e.g., user_model.dart, movies_model.dart)
 │   ├── network/      # Network services (e.g., base_api_services.dart, network_api_services.dart)
 │   └── response/     # API response models (e.g., api_response.dart, status.dart)
+├── model/            # Data models (e.g., user_model.dart, movies_model.dart)
 ├── repository/       # Data repositories (e.g., auth_repository.dart, home_repository.dart)
 ├── resources/        # App resources
 │   ├── component/    # Reusable UI components
